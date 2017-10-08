@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+	<!-- 이 서블릿 컨텍스트는 현재 프로젝트의 homeController(서블릿)의 환경설정하는 파일이다 -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- <annotation-driven />은 서블릿에 @(어노테이션)이 붙어있는 Controller를 인지한다(양쪽다 만족해야 
+		함) -->
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/css/**" location="/views/css/" />
+	<resources mapping="js/**" location="/views/js/" />
+	<!-- 위와 같은 활용은 활용도가 떨어져 추천하지 않음 <resources mapping="/images/**" location="/WEB-INF/views/images" 
+		/> 앞으로는 이런식으로 진행 될것임(mapping : 불러올 방법, location : 실제위치) <resources mapping="/css/**" 
+		location="/WEB-INF/views/css" /> -->
+
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/views/" />
+		<!-- prefix : 앞에다가 붙임, value : 실제위치 -->
+		<beans:property name="suffix" value=".jsp" />
+		<!-- prefix : 뒤에다가 붙임, value : .jsp -->
+	</beans:bean>
+
+	<!-- @(어노테이션)해두면 메모리에 올라가서(singletone) new하지 않아도 사용이 가능함 @Component : 모두 
+		합친건(밑에는 가독성을 위해서 나누어 둠) @Controller : servlet @Service @Resource <context:component-scan.../> 
+		어노테이션이 있는지 스캔하고 작동시킴 Controller은 <annotation-driven />으로 가능하지만 전부를 읽을라면 아래와 
+		같이 해줘야 함!! 서비스의 패키지가 다른경우 해당 패키지도 적어 줘야함 <context:component-scan base-package="com.taehwy.services" 
+		/> 또는 <context:component-scan base-package="com.taehwy.*" /> -->
+	<context:component-scan base-package="com.taehwy.*" />
+	<!-- Session Interceptor -->
+	<interceptors>
+		<interceptor>
+			<!-- 해당 ContextPath의 모든 요청은 Controller에 도착하기전에 가로챈다 -->
+			<mapping path="/*" />
+			<!-- 해당 path는 가로채지 않는다 -->
+			<exclude-mapping path="/" />
+			<exclude-mapping path="/Access" />
+			<exclude-mapping path="/AccessOut" />
+			<exclude-mapping path="/AccessForm" />
+			<exclude-mapping path="/logSign" />
+			<exclude-mapping path="/MemberInfo" />
+			<exclude-mapping path="/Mail" />
+			<!-- Interceptor에 의해 가로챈 요청을 체크하는 Class -->
+			<beans:bean class="com.taehwy.utils.SessionIntercepter"></beans:bean>
+		</interceptor>
+	</interceptors>
+	<!-- 메일 보내기 -->
+	<!-- <beans:bean id="javaMailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" />
+		<beans:property name="username" value="rnjdejr@gmail.com" />
+		<beans:property name="password" value="wr4v@st6SPe#" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean> -->
+</beans:beans>

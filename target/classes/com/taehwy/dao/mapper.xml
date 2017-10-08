@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taehwy.dao.IMybatis">
+	<!-- xml에서는 네임스페이스로 상속 받는 것을 정해줌 -->
+	
+	<resultMap type="bean" id="beanMap">
+      <result property="mbid" column="IH_MMID" javaType="java.lang.String"/>
+      <result property="date" column="IH_DATE"  javaType="java.util.Date"/>
+      <result property="info" column="IH_INFO" javaType="java.lang.String"/>
+      <result property="comment" column="IH_COMMENT" javaType="java.lang.String"/>  
+      <result property="mbspwd" column="MM_SPWD" javaType="java.lang.String"/>
+      <result property="date" column="AH_DATE" javaType="java.util.Date"/>
+	  <result property="mbid" column="MM_ID" javaType="java.lang.String"/>
+      <result property="mbnick" column="MM_NICK" javaType="java.lang.String"/>
+      <result property="lvName" column="LV_NAME" javaType="java.lang.String"/>
+      <result property="acName" column="AC_NAME" javaType="java.lang.String"/>
+   </resultMap>
+
+	<select id="getAccessHistory" parameterType="bean"
+		resultMap="beanMap">
+		SELECT IH_MMID,IH_DATE,IH_INFO,IH_COMMENT
+		FROM IH
+		WHERE IH_MMID=#{mbid}
+	</select>
+	<select id="getDupIdCheck" parameterType="bean"
+		resultType="Integer">
+		SELECT COUNT(*) FROM MEMBERS WHERE MM_ID =#{mbid}
+	</select>
+	<select id="getIdPwdCheck" parameterType="bean"
+		resultType="Integer">
+		SELECT COUNT(*) FROM MM WHERE MM_ID =#{mbid} and MM_SPWD=#{mbpwd}
+	</select>
+	<insert id="setAccHis" parameterType="map">
+		INSERT INTO ACCESSHISTORY (AH_MMID, AH_DATE, AH_CODE) VALUES (#{mbid},DEFAULT, #{contents})
+	</insert>
+	<insert id="setJoin1_1" parameterType="bean">
+		INSERT INTO MM VALUES(#{mbid},NULL, NULL, #{mbname},
+		NULL, DEFAULT, DEFAULT)
+	</insert>
+	<insert id="setJoin1_2" parameterType="bean">
+		UPDATE MM SET MM_SPWD = #{mbpwd}, MM_NAME = #{mbname}, MM_NICK = #{mbnick} 
+		WHERE MM_ID = #{mbid}
+	</insert>
+	<insert id="setJoin2" parameterType="map">
+		INSERT INTO IH VALUES(#{mbid}, DEFAULT, #{title},#{contents})
+	</insert>
+	<select id="getSpwd" parameterType="bean"
+		resultType="string">
+		SELECT MM_SPWD FROM MEMBERS WHERE MM_ID=#{mbid}
+	</select>
+	<select id="getPwd" parameterType="bean"
+		resultType="bean">
+		SELECT MM_PWD AS mbpwd FROM MEMBERS WHERE MM_ID=#{mbid}
+	</select>
+	<select id="getGeneralInfo" parameterType="bean"
+		resultMap="beanMap">
+		SELECT * FROM GENERALINFO WHERE MM_ID=#{mbid}
+	</select>
+	<!-- 
+	<select id="getAccessCheck" parameterType="bean"
+		resultType="Integer">
+		SELECT SUM(AH_CODE) FROM ACCESSHISTORY WHERE
+		AH_MMID=#{mbid}
+	</select>
+	<insert id="getUserInfo1" parameterType="bean">
+		INSERT INTO AH(AH_MMID, AH_DATE, AH_CODE) VALUES(#{mbid}, DEFAULT, 1)
+		<selectKey resultType="bean" keyProperty="mbid, date"
+			order="AFTER">
+			SELECT AH_MMID, AH_DATE FROM AH WHERE AH_MMID=#{mbid} AND
+			AH_DATE=#{date}
+		</selectKey>
+	</insert>
+	<select id="getUserInfo2" parameterType="bean"
+		resultType="bean">
+		SELECT * FROM USERINFO2 WHERE MM_ID=#{mbid}
+	</select>
+	<select id="getAccessHistory" parameterType="bean"
+		resultType="bean">
+		SELECT AH_DATE FROM ACCESSHISTORY WHERE AH_MMID=#{mbid} and
+		AH_CODE=1
+	</select>
+	<select id="getLevelHistroy" parameterType="bean"
+		resultType="bean">
+		SELECT * FROM IH WHERE IH_MMID = #{mbid} AND IH_INFO = '회원등급'
+	</select>
+	<select id="getActivityHistroy" parameterType="bean"
+		resultType="bean">
+		SELECT * FROM IH WHERE IH_MMID = #{mbid} AND IH_INFO = '계정상태'
+	</select> -->
+</mapper>

@@ -179,15 +179,20 @@ public class MemberManage extends TranEX {
 			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, 
 					TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 			if (dao.getDupIdCheck(bean) == 0) {
+				System.out.println("1");
 				if(dao.setJoin1_1(bean) != 0){
+					System.out.println("2");
 					if(dao.setJoin1_2(bean)!= 0){
+						System.out.println("3");
 						map.put("mbid", bean.getMbid());
 						map.put("title","계정상태");
 						map.put("contents", "회원 가입으로 [활동계정]이 되었습니다");
 						if(dao.setJoin2(map) != 0) {
+							System.out.println("4");
 							map.put("title", "회원등급");
 							map.put("contents", "회원 가입으로 [PEOPLE]이 되었습니다.");
 							if(dao.setJoin2(map) != 0) {
+								System.out.println("5");
 								setTransactionResult(true);
 								mav.addObject("result", "환영합니다.");
 								mav.setViewName("home");

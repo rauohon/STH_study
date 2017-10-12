@@ -10,7 +10,7 @@ public class SessionIntercepter extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try {
             //Session Object에서 user라는 Attribute가 null일경우 accessForm페이지로 이동
-            if(request.getSession().getAttribute("user") == null ){
+            if(request.getSession().getAttribute("mbid") == null ){
                     response.sendRedirect("/");
                     return false;
             }

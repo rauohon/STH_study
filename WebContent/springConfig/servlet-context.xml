@@ -48,10 +48,8 @@
 			<exclude-mapping path="/" />
 			<exclude-mapping path="/Access" />
 			<exclude-mapping path="/AccessOut" />
-			<exclude-mapping path="/AccessForm" />
+			<exclude-mapping path="/Join" />
 			<exclude-mapping path="/logSign" />
-			<exclude-mapping path="/MemberInfo" />
-			<exclude-mapping path="/Mail" />
 			<!-- Interceptor에 의해 가로챈 요청을 체크하는 Class -->
 			<beans:bean class="com.taehwy.utils.SessionIntercepter"></beans:bean>
 		</interceptor>

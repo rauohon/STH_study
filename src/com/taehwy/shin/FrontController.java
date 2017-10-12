@@ -32,8 +32,6 @@ public class FrontController {
 	@Autowired
 	private MemberManage mb;
 	@Autowired
-	private ProjectUtils session;
-	@Autowired
 	private MailSender ms;
 	
 	private ModelAndView mav = null;
@@ -43,14 +41,14 @@ public class FrontController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView accessMain() {
 		mav = new ModelAndView();
-		mav.setViewName("home");
+		mav.setViewName("jquery");
 		
 		return mav;
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView accessMain(@ModelAttribute Bean bean) {
 		mav = new ModelAndView();
-		mav.setViewName("home");
+		mav.setViewName("jquery");
 		return mav;
 	}
 	@RequestMapping(value="/logSign", method = RequestMethod.GET)

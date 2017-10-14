@@ -41,14 +41,14 @@ public class FrontController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView accessMain() {
 		mav = new ModelAndView();
-		mav.setViewName("jquery");
+		mav.setViewName("jquery2");
 		
 		return mav;
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView accessMain(@ModelAttribute Bean bean) {
 		mav = new ModelAndView();
-		mav.setViewName("jquery");
+		mav.setViewName("jquery2");
 		return mav;
 	}
 	@RequestMapping(value="/logSign", method = RequestMethod.GET)

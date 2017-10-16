@@ -15,6 +15,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.gson.Gson;
 import com.taehwy.bean.Bean;
 import com.taehwy.dao.IMybatis;
 import com.taehwy.dao.TranEX;
@@ -68,6 +69,10 @@ public class MemberManage extends TranEX {
 		
 		case 4:
 			mav = play((Bean)bean);
+			break;
+			
+		case 5:
+			mav = jason((Bean)bean);
 			break;
 		}
 		
@@ -138,7 +143,7 @@ public class MemberManage extends TranEX {
 	
 	private String setAccessOut(Bean b) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("<form action=\"AccessOut?mbid="+ b.getMbid() +"\" method=\"post\">");
+		sb.append("<form action=\"AccessOut\" method=\"post\">");
 		sb.append("<input type=\"submit\" value=\"로그아웃\">");
 		sb.append("</form>");
 		return sb.toString();
@@ -248,6 +253,23 @@ public class MemberManage extends TranEX {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		return mav;
+	}
+	
+	private ModelAndView jason(Bean bean) {
+		
+		try {
+			Gson gson = new Gson();
+			List<Bean> history = dao.getAH(bean);
+			String jsonPaser = gson.toJson(history);
+			
+			System.out.println(jsonPaser);
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return mav;
 	}
 	

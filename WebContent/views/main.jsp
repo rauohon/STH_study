@@ -33,9 +33,7 @@ function init() {
 </head>
 <body onLoad="init()">
 	<%@ include file="nav.jsp"%>
-	<div id = "userMainInfo">
-		${userMainInfo }
-	</div>
+	<div id="userMainInfo">${userMainInfo }</div>
 	<div id="userInfo">
 		<table>
 			<tr>
@@ -73,5 +71,28 @@ function init() {
 	<form action="Mail" method="post">
 		<input type="submit" value="메일 보내기">
 	</form>
+	<form action="Jason" method="get">
+		<input type="submit" value="제이슨 추출하기">
+	</form>
+	<script src="//www.google.com/jsapi"></script>
+	<script>
+var data = [
+  ['원소', '밀도'],
+  ['구리', 8.94],
+  ['은', 10.49],
+  ['금', 19.30],
+  ['백금', 21.45],
+];
+var options = {
+  title: '귀금속 밀도 (단위: g/cm³)',
+  width: 400, height: 500
+};
+google.load('visualization', '1.0', {'packages':['corechart']});
+google.setOnLoadCallback(function() {
+  var chart = new google.visualization.PieChart(document.querySelector('#chart_div'));
+  chart.draw(google.visualization.arrayToDataTable(data), options);
+});
+</script>
+	<div id="chart_div"></div>
 </body>
 </html>

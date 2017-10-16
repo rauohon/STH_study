@@ -15,7 +15,11 @@
       <result property="lvName" column="LV_NAME" javaType="java.lang.String"/>
       <result property="acName" column="AC_NAME" javaType="java.lang.String"/>
    </resultMap>
-
+   <select id="getAH" parameterType="bean"
+		resultMap="beanMap">
+		SELECT IH_MMID,IH_DATE,IH_INFO,IH_COMMENT
+		FROM IH
+	</select>
 	<select id="getAccessHistory" parameterType="bean"
 		resultMap="beanMap">
 		SELECT IH_MMID,IH_DATE,IH_INFO,IH_COMMENT

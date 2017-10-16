@@ -45,5 +45,7 @@ public interface IMybatis {
 	public String getPwd(Bean bean);
 	// getGeneralInfo
 	public List<Bean> getGeneralInfo(Bean bean);
+	// json test
+	public List<Bean> getAH(Bean bean);
 
 }

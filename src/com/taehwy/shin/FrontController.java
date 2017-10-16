@@ -39,16 +39,16 @@ public class FrontController {
 	private static final Logger logger = LoggerFactory.getLogger(FrontController.class);
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView accessMain() {
+	private ModelAndView accessMain() {
 		mav = new ModelAndView();
-		mav.setViewName("jquery2");
+		mav.setViewName("jquery5");
 		
 		return mav;
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView accessMain(@ModelAttribute Bean bean) {
 		mav = new ModelAndView();
-		mav.setViewName("jquery2");
+		mav.setViewName("jquery5");
 		return mav;
 	}
 	@RequestMapping(value="/logSign", method = RequestMethod.GET)
@@ -118,6 +118,13 @@ public class FrontController {
 	public ModelAndView mailSender(@ModelAttribute Bean bean) {
 	
 		mav=ms.entrance(0, bean);
+		
+		return mav;
+	}
+	@RequestMapping(value="/Jason")
+	public ModelAndView jason(@ModelAttribute Bean bean) {
+	
+		mav=mb.entrance(5, bean);
 		
 		return mav;
 	}

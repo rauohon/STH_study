@@ -4,6 +4,8 @@
 package com.taehwy.shin;
 
 
+import javax.mail.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.gson.Gson;
 import com.taehwy.bean.Bean;
 import com.taehwy.service.MailSender;
 import com.taehwy.service.MemberManage;
@@ -41,14 +46,14 @@ public class FrontController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	private ModelAndView accessMain() {
 		mav = new ModelAndView();
-		mav.setViewName("jquery5");
+		mav.setViewName("home");
 		
 		return mav;
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView accessMain(@ModelAttribute Bean bean) {
 		mav = new ModelAndView();
-		mav.setViewName("jquery5");
+		mav.setViewName("home");
 		return mav;
 	}
 	@RequestMapping(value="/logSign", method = RequestMethod.GET)
@@ -127,5 +132,17 @@ public class FrontController {
 		mav=mb.entrance(5, bean);
 		
 		return mav;
+	}
+	@RequestMapping(value="/jqueryAjax")
+	public @ResponseBody String ajaxStart(@RequestParam("id") String id, @RequestParam("pw") String pw, Bean bean) {
+		
+		bean.setMbid("taehwy");
+		bean.setMbpwd("1234");
+		
+		Gson gson = new Gson();
+		
+		String jsonParse = gson.toJson(bean);
+		
+		return jsonParse;
 	}
 }

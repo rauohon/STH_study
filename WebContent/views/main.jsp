@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="/css/nav.css" />
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 function init() {
 	var accessForm = document.getElementById("accessForm");
@@ -29,6 +31,28 @@ function init() {
 		userGeneralInfo.style.display = "block";
 	}
 }
+</script>
+<script>
+function startAjax(){
+	$.ajax({
+		type: "get",
+		url: "jqueryAjax",
+		data: { id : "taehwy",pw : "1234" },		// 전달 값
+		dataType: "json",										// json, xml, html(text): 안쓰면 html
+		timeout : "5000",										// 타임아웃
+		success : function( data ) {						// 성공
+			alert(data);
+			console.log(data);
+			$("#ajax_div").append(data.mbid + ',');
+			$("#ajax_div").append(data.mbpwd);
+		},
+		error : function( error ) {							// 실패
+			alert( "error" );
+			console.log(error);
+		}
+	});
+}
+
 </script>
 </head>
 <body onLoad="init()">
@@ -74,6 +98,7 @@ function init() {
 	<form action="Jason" method="get">
 		<input type="submit" value="제이슨 추출하기">
 	</form>
+	<input type="button" onClick='startAjax()' value="ajax 시작하기">
 	<script src="//www.google.com/jsapi"></script>
 	<script>
 var data = [
@@ -94,5 +119,6 @@ google.setOnLoadCallback(function() {
 });
 </script>
 	<div id="chart_div"></div>
+	<div id="ajax_div"></div>
 </body>
 </html>

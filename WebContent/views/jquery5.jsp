@@ -48,5 +48,6 @@ $(document).ready(function(){
 <input type='button' id='adjustClass' value='AdjustClass' />
 <input type='button' id='addClass' value='AddClass' />
 <input type='button' id='doubleClass' value='DoubleClass' />
+${id } : ${pw }
 </body>
 </html>
